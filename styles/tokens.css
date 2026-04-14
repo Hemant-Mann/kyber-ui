@@ -3,6 +3,8 @@
   --foreground: 0 0% 9%;
   --card: 0 0% 100%;
   --card-foreground: 0 0% 9%;
+  --primary: 36 92% 38%;
+  --primary-foreground: 0 0% 100%;
   --border: 30 10% 88%;
   --secondary: 30 20% 96%;
   --muted: 30 15% 92%;
@@ -30,12 +32,14 @@
   --foreground: 210 20% 92%;
   --card: 220 16% 13%;
   --card-foreground: 210 20% 92%;
+  --primary: 36 92% 38%;
+  --primary-foreground: 0 0% 100%;
   --border: 220 14% 24%;
   --secondary: 220 14% 18%;
   --muted: 220 14% 19%;
   --muted-foreground: 220 12% 68%;
 
-  --accent: 36 92% 58%;
+  --accent: 36 92% 38%;
   --accent-soft: 36 68% 20%;
   --danger: 4 76% 63%;
   --success: 120 52% 56%;
