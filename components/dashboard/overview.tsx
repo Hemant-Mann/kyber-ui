@@ -62,7 +62,7 @@ function BudgetCard() {
       </div>
 
       <div className="budget-line">
-        <span>$235.34 of $500.00</span>
+        <span className="text-sm font-medium">$235.34 of $500.00</span>
         <strong>{percent}%</strong>
       </div>
 

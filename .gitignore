@@ -2,3 +2,4 @@ node_modules
 .next
 screenshots
 .DS_Store
+data-comparison
