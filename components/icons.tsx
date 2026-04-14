@@ -35,6 +35,23 @@ export function SunIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+export function MoonIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <IconBase {...props}>
+      <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8Z" />
+    </IconBase>
+  );
+}
+
+export function MonitorIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <IconBase {...props}>
+      <rect x="3" y="4" width="18" height="13" rx="2" />
+      <path d="M8 20h8M12 17v3" />
+    </IconBase>
+  );
+}
+
 export function PlusIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <IconBase {...props}>

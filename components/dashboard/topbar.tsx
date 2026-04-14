@@ -1,14 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { NAV_SECTIONS } from "@/components/dashboard/data";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { GlobeIcon, SearchIcon, SunIcon } from "@/components/icons";
+import { GlobeIcon, MonitorIcon, MoonIcon, SearchIcon, SunIcon } from "@/components/icons";
+import { cn } from "@/lib/cn";
+import { applyThemeMode, getStoredThemeMode, THEME_STORAGE_KEY, type ThemeMode } from "@/lib/theme";
 
 export function Topbar({ onAdd }: { onAdd: () => void }) {
+  const themeMenuRef = useRef<HTMLDivElement>(null);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [themeOpen, setThemeOpen] = useState(false);
+  const [themeMode, setThemeMode] = useState<ThemeMode>("system");
   const [query, setQuery] = useState("");
 
   const filteredSections = useMemo(() => {
@@ -29,6 +34,7 @@ export function Topbar({ onAdd }: { onAdd: () => void }) {
 
       if (event.key === "Escape") {
         setSearchOpen(false);
+        setThemeOpen(false);
       }
     };
 
@@ -39,6 +45,41 @@ export function Topbar({ onAdd }: { onAdd: () => void }) {
   useEffect(() => {
     if (!searchOpen) setQuery("");
   }, [searchOpen]);
+
+  useEffect(() => {
+    const initialMode = getStoredThemeMode();
+    setThemeMode(initialMode);
+    applyThemeMode(initialMode);
+  }, []);
+
+  useEffect(() => {
+    applyThemeMode(themeMode);
+    window.localStorage.setItem(THEME_STORAGE_KEY, themeMode);
+  }, [themeMode]);
+
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-color-scheme: dark)");
+    const onMediaChange = () => {
+      if (themeMode === "system") applyThemeMode("system");
+    };
+    media.addEventListener("change", onMediaChange);
+    return () => media.removeEventListener("change", onMediaChange);
+  }, [themeMode]);
+
+  useEffect(() => {
+    const onMouseDown = (event: MouseEvent) => {
+      if (!themeMenuRef.current?.contains(event.target as Node)) {
+        setThemeOpen(false);
+      }
+    };
+    window.addEventListener("mousedown", onMouseDown);
+    return () => window.removeEventListener("mousedown", onMouseDown);
+  }, []);
+
+  const themeLabel = themeMode[0].toUpperCase() + themeMode.slice(1);
+
+  const themeIcon =
+    themeMode === "dark" ? <MoonIcon /> : themeMode === "light" ? <SunIcon /> : <MonitorIcon />;
 
   return (
     <>
@@ -53,9 +94,27 @@ export function Topbar({ onAdd }: { onAdd: () => void }) {
           <button type="button" className="icon-btn" aria-label="Language">
             <GlobeIcon />
           </button>
-          <button type="button" className="icon-btn" aria-label="Theme">
-            <SunIcon />
-          </button>
+          <div className="theme-menu" ref={themeMenuRef}>
+            <button type="button" className="icon-btn" aria-label={`Theme: ${themeLabel}`} onClick={() => setThemeOpen((prev) => !prev)}>
+              {themeIcon}
+            </button>
+            {themeOpen ? (
+              <div className="theme-menu__panel fade-up" role="menu">
+                <button type="button" className={cn("theme-menu__item", themeMode === "light" && "is-active")} onClick={() => { setThemeMode("light"); setThemeOpen(false); }}>
+                  <SunIcon />
+                  <span>Light</span>
+                </button>
+                <button type="button" className={cn("theme-menu__item", themeMode === "dark" && "is-active")} onClick={() => { setThemeMode("dark"); setThemeOpen(false); }}>
+                  <MoonIcon />
+                  <span>Dark</span>
+                </button>
+                <button type="button" className={cn("theme-menu__item", themeMode === "system" && "is-active")} onClick={() => { setThemeMode("system"); setThemeOpen(false); }}>
+                  <MonitorIcon />
+                  <span>System</span>
+                </button>
+              </div>
+            ) : null}
+          </div>
 
           <div className="mode-pill">
             <span>Demo Mode</span>

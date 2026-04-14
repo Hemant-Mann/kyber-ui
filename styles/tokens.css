@@ -24,3 +24,22 @@
   --font-body: var(--font-overpass), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-display: var(--font-overpass), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
+
+:root[data-theme="dark"] {
+  --background: 220 16% 10%;
+  --foreground: 210 20% 92%;
+  --card: 220 16% 13%;
+  --card-foreground: 210 20% 92%;
+  --border: 220 14% 24%;
+  --secondary: 220 14% 18%;
+  --muted: 220 14% 19%;
+  --muted-foreground: 220 12% 68%;
+
+  --accent: 36 92% 58%;
+  --accent-soft: 36 68% 20%;
+  --danger: 4 76% 63%;
+  --success: 120 52% 56%;
+
+  --shadow-card: 0 1px 0 rgba(0, 0, 0, 0.22), 0 16px 32px rgba(0, 0, 0, 0.2);
+  --shadow-modal: 0 26px 70px rgba(0, 0, 0, 0.45);
+}

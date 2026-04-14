@@ -357,6 +357,53 @@
   height: 20px;
 }
 
+.theme-menu {
+  position: relative;
+}
+
+.theme-menu__panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 132px;
+  border: 1px solid hsl(var(--border));
+  border-radius: 10px;
+  background: hsl(var(--card));
+  box-shadow: var(--shadow-card);
+  padding: 4px;
+  z-index: 20;
+}
+
+.theme-menu__item {
+  width: 100%;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: hsl(var(--foreground));
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  font-size: var(--text-sm);
+  text-align: left;
+  cursor: pointer;
+}
+
+.theme-menu__item:hover {
+  background: hsl(var(--secondary));
+}
+
+.theme-menu__item.is-active {
+  background: hsl(var(--secondary));
+  font-weight: 600;
+}
+
+.theme-menu__item svg {
+  width: 16px;
+  height: 16px;
+  color: hsl(var(--muted-foreground));
+}
+
 .mode-pill {
   min-height: var(--ctrl-h);
   border: 1px solid hsl(var(--border));
@@ -623,6 +670,12 @@
   font-size: var(--text-xs);
   line-height: 1.625;
   font-weight: 500;
+}
+
+:root[data-theme="dark"] .budget-note {
+  border-color: hsl(120 42% 30%);
+  background: hsl(120 35% 16%);
+  color: hsl(120 68% 78%);
 }
 
 .renewals-card__empty {
