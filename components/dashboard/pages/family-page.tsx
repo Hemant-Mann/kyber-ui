@@ -1,5 +1,4 @@
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Button, Card, PageHeader, StatCard } from "@kyber/dashboard-kit";
 
 const stats = [
   { title: "Family members", value: "4", meta: "Tracked profiles", icon: "⚯" },
@@ -19,22 +18,15 @@ const members = [
 export function FamilyPage() {
   return (
     <section className="page-section fade-up">
-      <header className="page-head">
-        <div>
-          <h1>Family Members</h1>
-          <p>Manage who uses your subscriptions (Demo Mode)</p>
-        </div>
-        <Button>Add Family Member</Button>
-      </header>
+      <PageHeader
+        title="Family Members"
+        description="Manage who uses your subscriptions (Demo Mode)"
+        actions={<Button>Add Family Member</Button>}
+      />
 
       <section className="family-summary-grid">
         {stats.map((item) => (
-          <Card className="page-stat-card" key={item.title}>
-            <h4>{item.title}</h4>
-            <strong>{item.value}</strong>
-            <p>{item.meta}</p>
-            <em>{item.icon}</em>
-          </Card>
+          <StatCard key={item.title} title={item.title} value={item.value} meta={item.meta} icon={item.icon} />
         ))}
       </section>
 

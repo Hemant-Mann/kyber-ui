@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Overpass:wght@400;500;600;700;800&display=swap");
+@import "@kyber/dashboard-kit/styles.css";
 @import "../styles/tokens.css";
 @import "../styles/base.css";
 @import "../styles/ui.css";

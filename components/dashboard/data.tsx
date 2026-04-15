@@ -13,9 +13,9 @@ import {
   SparklesIcon,
   WalletIcon,
 } from "@/components/icons";
-import type { NavSection, StatItem } from "@/components/dashboard/types";
+import type { KitNavSection, KitStatItem } from "@kyber/dashboard-kit";
 
-export const NAV_SECTIONS: NavSection[] = [
+export const NAV_SECTIONS: KitNavSection[] = [
   {
     label: "Main",
     items: [
@@ -52,7 +52,7 @@ export const NAV_SECTIONS: NavSection[] = [
   },
 ];
 
-export const STATS: StatItem[] = [
+export const STATS: KitStatItem[] = [
   {
     title: "Monthly Spending",
     value: "$235.34",

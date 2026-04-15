@@ -1,21 +1,21 @@
 import type { ReactNode } from "react";
 
-export type NavItem = {
+export type KitNavItem = {
   label: string;
   icon: ReactNode;
   href?: string;
   external?: boolean;
 };
 
-export type NavSection = {
+export type KitNavSection = {
   label: string;
-  items: NavItem[];
+  items: KitNavItem[];
 };
 
-export type StatItem = {
+export type KitStatItem = {
   title: string;
   value: string;
-  meta: string;
+  meta?: string;
   sub?: string;
-  icon: ReactNode;
+  icon?: ReactNode;
 };

@@ -1,5 +1,4 @@
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Button, Card, PageHeader, StatCard } from "@kyber/dashboard-kit";
 
 const stats = [
   { title: "Payment methods", value: "5", meta: "Active methods", icon: "◻" },
@@ -19,22 +18,15 @@ const methods = [
 export function PaymentMethodsPage() {
   return (
     <section className="page-section fade-up">
-      <header className="page-head">
-        <div>
-          <h1>Payment Methods</h1>
-          <p>Track which payment methods are used for your subscriptions</p>
-        </div>
-        <Button>Add Payment Method</Button>
-      </header>
+      <PageHeader
+        title="Payment Methods"
+        description="Track which payment methods are used for your subscriptions"
+        actions={<Button>Add Payment Method</Button>}
+      />
 
       <section className="page-stat-grid">
         {stats.map((item) => (
-          <Card className="page-stat-card" key={item.title}>
-            <h4>{item.title}</h4>
-            <strong>{item.value}</strong>
-            <p>{item.meta}</p>
-            <em>{item.icon}</em>
-          </Card>
+          <StatCard key={item.title} title={item.title} value={item.value} meta={item.meta} icon={item.icon} />
         ))}
       </section>
 

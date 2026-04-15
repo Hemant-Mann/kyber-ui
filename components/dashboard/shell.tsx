@@ -11,6 +11,7 @@ import { PaymentMethodsPage } from "@/components/dashboard/pages/payment-methods
 import { SubscriptionsPage } from "@/components/dashboard/pages/subscriptions-page";
 import { Sidebar } from "@/components/dashboard/sidebar";
 import { Topbar } from "@/components/dashboard/topbar";
+import { DashboardFrame } from "@kyber/dashboard-kit";
 import type { DensityMode } from "@/lib/density";
 
 export type DemoPage = "dashboard" | "subscriptions" | "analytics" | "categories" | "family" | "payment-methods";
@@ -29,15 +30,13 @@ export function DashboardShell({ density, page }: { density: DensityMode; page: 
   else content = <PaymentMethodsPage />;
 
   return (
-    <main className="dashboard-root" data-density={density}>
-      <Sidebar collapsed={collapsed} onToggle={() => setCollapsed((prev) => !prev)} />
-
-      <div className="dashboard-content">
-        <Topbar onAdd={openModal} />
-        {content}
-      </div>
-
-      <AddSubscriptionModal open={modalOpen} onClose={() => setModalOpen(false)} />
-    </main>
+    <DashboardFrame
+      density={density}
+      sidebar={<Sidebar collapsed={collapsed} onToggle={() => setCollapsed((prev) => !prev)} />}
+      topbar={<Topbar onAdd={openModal} />}
+      overlay={<AddSubscriptionModal open={modalOpen} onClose={() => setModalOpen(false)} />}
+    >
+      {content}
+    </DashboardFrame>
   );
 }

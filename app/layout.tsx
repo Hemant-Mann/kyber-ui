@@ -15,7 +15,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             __html: `
               (function () {
                 try {
-                  var key = "vexly-theme-mode";
+                  var key = "kyber-theme-mode";
                   var saved = localStorage.getItem(key);
                   var mode = (saved === "light" || saved === "dark" || saved === "system") ? saved : "system";
                   var resolved = mode === "system"

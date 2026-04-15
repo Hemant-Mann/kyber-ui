@@ -1,7 +1,6 @@
 import { SUBSCRIPTION_STEPS } from "@/components/dashboard/data";
 import { CloseIcon, LinkIcon, OfficeIcon, PlusIcon, SearchIcon, SparklesIcon, UploadIcon } from "@/components/icons";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button, Input } from "@kyber/dashboard-kit";
 import { cn } from "@/lib/cn";
 
 export function AddSubscriptionModal({ open, onClose }: { open: boolean; onClose: () => void }) {

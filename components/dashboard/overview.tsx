@@ -1,8 +1,7 @@
 import type { ReactNode } from "react";
 import { STATS } from "@/components/dashboard/data";
 import { PlusIcon } from "@/components/icons";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Button, Card } from "@kyber/dashboard-kit";
 
 function AlertBanner() {
   return (
@@ -35,15 +34,15 @@ function WelcomeBlock({ onAdd }: { onAdd: () => void }) {
   );
 }
 
-function StatCard({ title, value, meta, sub, icon }: { title: string; value: string; meta: string; sub?: string; icon: ReactNode }) {
+function StatCard({ title, value, meta, sub, icon }: { title: string; value: string; meta?: string; sub?: string; icon?: ReactNode }) {
   return (
     <Card className="stat-card fade-up">
       <div className="stat-card__head">
         <h3>{title}</h3>
-        <span>{icon}</span>
+        {icon ? <span>{icon}</span> : null}
       </div>
       <div className="stat-card__value">{value}</div>
-      <div className="stat-card__meta">{meta}</div>
+      {meta ? <div className="stat-card__meta">{meta}</div> : null}
       {sub ? <div className="stat-card__sub">{sub}</div> : null}
     </Card>
   );

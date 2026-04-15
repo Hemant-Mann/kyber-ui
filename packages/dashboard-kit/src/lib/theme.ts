@@ -1,7 +1,7 @@
 export type ThemeMode = "light" | "dark" | "system";
 export type ResolvedTheme = "light" | "dark";
 
-export const THEME_STORAGE_KEY = "vexly-theme-mode";
+export const THEME_STORAGE_KEY = "kyber-theme-mode";
 
 export function resolveSystemTheme(): ResolvedTheme {
   if (typeof window === "undefined") return "light";

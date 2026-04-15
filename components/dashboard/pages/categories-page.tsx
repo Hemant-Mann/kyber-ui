@@ -1,5 +1,4 @@
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Button, Card, PageHeader, StatCard } from "@kyber/dashboard-kit";
 
 const summaries = [
   { title: "Total Categories", value: "6", meta: "6 with budget limits", icon: "◻" },
@@ -19,25 +18,16 @@ const categories = [
 export function CategoriesPage() {
   return (
     <section className="page-section fade-up">
-      <header className="page-head">
-        <div>
-          <div className="page-title-with-chip">
-            <h1>Categories</h1>
-            <span>$445.00 total budgets</span>
-          </div>
-          <p>Organize your subscriptions and set budget limits for each category</p>
-        </div>
-        <Button>Add Category</Button>
-      </header>
+      <PageHeader
+        title="Categories"
+        description="Organize your subscriptions and set budget limits for each category"
+        badge={<span>$445.00 total budgets</span>}
+        actions={<Button>Add Category</Button>}
+      />
 
       <section className="category-summary-grid">
         {summaries.map((item) => (
-          <Card className="page-stat-card" key={item.title}>
-            <h4>{item.title}</h4>
-            <strong>{item.value}</strong>
-            <p>{item.meta}</p>
-            <em>{item.icon}</em>
-          </Card>
+          <StatCard key={item.title} title={item.title} value={item.value} meta={item.meta} icon={item.icon} />
         ))}
       </section>
 

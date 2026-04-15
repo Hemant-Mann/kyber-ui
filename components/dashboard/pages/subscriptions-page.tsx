@@ -1,15 +1,4 @@
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-
-function SummaryCard({ title, value, meta }: { title: string; value: string; meta: string }) {
-  return (
-    <Card className="page-stat-card">
-      <h4>{title}</h4>
-      <strong>{value}</strong>
-      <p>{meta}</p>
-    </Card>
-  );
-}
+import { Button, Card, PageHeader, StatCard } from "@kyber/dashboard-kit";
 
 function TableRow() {
   return (
@@ -32,13 +21,11 @@ function TableRow() {
 export function SubscriptionsPage({ onAdd }: { onAdd: () => void }) {
   return (
     <section className="page-section fade-up">
-      <header className="page-head">
-        <div>
-          <h1>My Subscriptions</h1>
-          <p>Manage and track all your recurring payments in one place</p>
-        </div>
-        <Button onClick={onAdd}>Add Subscription</Button>
-      </header>
+      <PageHeader
+        title="My Subscriptions"
+        description="Manage and track all your recurring payments in one place"
+        actions={<Button onClick={onAdd}>Add Subscription</Button>}
+      />
 
       <div className="sub-controls">
         <div className="sub-left-controls">
@@ -64,10 +51,10 @@ export function SubscriptionsPage({ onAdd }: { onAdd: () => void }) {
       </div>
 
       <section className="page-stat-grid">
-        <SummaryCard title="Recurring Spend (Monthlyized)" value="$246.22" meta="22 active subscriptions · monthlyized" />
-        <SummaryCard title="Lifetime Purchases" value="$0.00" meta="0 lifetime purchases" />
-        <SummaryCard title="Active Subscriptions" value="22" meta="23 total" />
-        <SummaryCard title="Upcoming Renewals" value="3" meta="Due in the next 7 days" />
+        <StatCard title="Recurring Spend (Monthlyized)" value="$246.22" meta="22 active subscriptions · monthlyized" />
+        <StatCard title="Lifetime Purchases" value="$0.00" meta="0 lifetime purchases" />
+        <StatCard title="Active Subscriptions" value="22" meta="23 total" />
+        <StatCard title="Upcoming Renewals" value="3" meta="Due in the next 7 days" />
       </section>
 
       <Card className="sub-table-shell">
