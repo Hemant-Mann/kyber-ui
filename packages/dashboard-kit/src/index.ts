@@ -26,6 +26,7 @@ export { Avatar } from "./ui/avatar";
 export { Skeleton } from "./ui/skeleton";
 export { DropdownMenu, MenuItem, MenuSeparator } from "./ui/menu";
 export { Accordion, AccordionBody } from "./ui/accordion";
+export { Divider } from "./ui/divider";
 export { Pagination } from "./ui/pagination";
 export { DataTable } from "./ui/data-table";
 export { DatePicker, DateTimePicker } from "./ui/date-picker";
