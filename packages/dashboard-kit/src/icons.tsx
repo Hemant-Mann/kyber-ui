@@ -1,8 +1,10 @@
 import type { SVGProps } from "react";
 
 function IconBase({ children, ...props }: SVGProps<SVGSVGElement>) {
+  // Keep icon props permissive across consuming apps that may have stricter or older SVG typings.
+  const svgProps = props as Record<string, unknown>;
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden {...props}>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden {...svgProps}>
       {children}
     </svg>
   );
