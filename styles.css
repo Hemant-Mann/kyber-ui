@@ -177,6 +177,7 @@
   padding: 12px 10px;
   position: sticky;
   top: 0;
+  z-index: 40; /* sticky makes a stacking context: without this the rail tooltip paints under page content */
   height: 100vh;
 }
 
@@ -331,6 +332,7 @@
 }
 
 [data-kyber-kit] .searchbox {
+  font: inherit;
   width: min(384px, 100%);
   height: var(--search-h);
   border: 1px solid hsl(var(--border));
@@ -727,6 +729,7 @@
 }
 
 [data-kyber-kit] .kyb-select__field {
+  font: inherit;
   appearance: none;
   width: 100%;
   height: 40px;
@@ -1104,7 +1107,8 @@
   color: hsl(var(--muted-foreground));
 }
 
-[data-kyber-kit] .kyb-form-field__error {
+[data-kyber-kit] .kyb-form-field__error,
+[data-kyber-kit] .kyb-form-field__hint.is-error {
   color: hsl(var(--danger));
 }
 
