@@ -67,11 +67,6 @@ export function DashboardTopbar({
   }, []);
 
   useEffect(() => {
-    applyThemeMode(themeMode);
-    window.localStorage.setItem(THEME_STORAGE_KEY, themeMode);
-  }, [themeMode]);
-
-  useEffect(() => {
     const media = window.matchMedia("(prefers-color-scheme: dark)");
     const onMediaChange = () => {
       if (themeMode === "system") applyThemeMode("system");
@@ -93,6 +88,14 @@ export function DashboardTopbar({
     return () => window.removeEventListener("mousedown", onMouseDown);
   }, []);
 
+  // Stored only on a pick: an effect on themeMode would overwrite the saved choice with the initial "system" on mount.
+  const chooseTheme = (mode: ThemeMode) => {
+    window.localStorage.setItem(THEME_STORAGE_KEY, mode);
+    applyThemeMode(mode);
+    setThemeMode(mode);
+    setThemeOpen(false);
+  };
+
   const themeLabel = themeMode[0].toUpperCase() + themeMode.slice(1);
   const themeIcon = themeMode === "dark" ? <MoonIcon /> : themeMode === "light" ? <SunIcon /> : <MonitorIcon />;
 
@@ -112,15 +115,15 @@ export function DashboardTopbar({
             </button>
             {themeOpen ? (
               <div className="theme-menu__panel kyb-fade-up" role="menu">
-                <button type="button" className={cn("theme-menu__item", themeMode === "light" && "is-active")} onClick={() => { setThemeMode("light"); setThemeOpen(false); }}>
+                <button type="button" className={cn("theme-menu__item", themeMode === "light" && "is-active")} onClick={() => chooseTheme("light")}>
                   <SunIcon />
                   <span>Light</span>
                 </button>
-                <button type="button" className={cn("theme-menu__item", themeMode === "dark" && "is-active")} onClick={() => { setThemeMode("dark"); setThemeOpen(false); }}>
+                <button type="button" className={cn("theme-menu__item", themeMode === "dark" && "is-active")} onClick={() => chooseTheme("dark")}>
                   <MoonIcon />
                   <span>Dark</span>
                 </button>
-                <button type="button" className={cn("theme-menu__item", themeMode === "system" && "is-active")} onClick={() => { setThemeMode("system"); setThemeOpen(false); }}>
+                <button type="button" className={cn("theme-menu__item", themeMode === "system" && "is-active")} onClick={() => chooseTheme("system")}>
                   <MonitorIcon />
                   <span>System</span>
                 </button>

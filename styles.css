@@ -211,6 +211,17 @@
   border-top-color: transparent;
 }
 
+[data-kyber-kit] .sidebar__avatar.has-logo {
+  background: transparent;
+  padding: 0;
+}
+
+[data-kyber-kit] .sidebar__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 [data-kyber-kit] .sidebar__brand {
   font-family: var(--font-display);
   font-size: 34px;
@@ -566,7 +577,8 @@
   gap: 12px;
 }
 
-[data-kyber-kit] .page-head h1 {
+[data-kyber-kit] .page-head h1,
+[data-kyber-kit] .page-title {
   margin: 0;
   text-wrap: balance;
   font-size: clamp(27px, 2vw, 36px);
@@ -821,7 +833,8 @@
   background: hsl(var(--card));
 }
 
-[data-kyber-kit] .kyb-data-table .kyb-table-scroll {
+[data-kyber-kit] .kyb-data-table .kyb-table-scroll,
+[data-kyber-kit] .ui-card .kyb-table-scroll {
   border: 0;
   border-radius: 0;
 }
@@ -1279,8 +1292,8 @@
 }
 
 [data-kyber-kit] .kyb-badge.is-warning {
-  background: color-mix(in oklab, hsl(var(--primary)) 22%, transparent);
-  color: hsl(var(--primary));
+  background: color-mix(in oklab, hsl(var(--warning)) 22%, transparent);
+  color: hsl(var(--warning));
 }
 
 [data-kyber-kit] .kyb-badge.is-muted {
@@ -1403,6 +1416,7 @@
 
 [data-kyber-kit] .kyb-tabs {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 10px;
 }
 
@@ -1434,11 +1448,9 @@
   box-shadow: var(--shadow-card);
 }
 
+/* Frameless: the tab list is the control, the panel's own content carries any card. */
 [data-kyber-kit] .kyb-tab-panel {
-  border: 1px solid hsl(var(--border));
-  border-radius: 10px;
-  background: hsl(var(--card));
-  padding: 12px;
+  min-width: 0;
 }
 
 [data-kyber-kit] .kyb-toast-stack {

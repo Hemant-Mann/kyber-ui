@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import type { ReactNode } from "react";
 import { cn } from "../lib/cn";
 import type { KitNavItem, KitNavSection } from "../types";
 
@@ -57,19 +58,21 @@ export function SidebarNav({
   collapsed,
   onToggle,
   brand = "Vexly",
+  logo,
 }: {
   sections: KitNavSection[];
   collapsed: boolean;
   onToggle: () => void;
   brand?: string;
+  logo?: ReactNode;
 }) {
   const pathname = usePathname();
 
   return (
     <aside className={cn("sidebar", collapsed && "is-collapsed")}>
       <div className="sidebar__brand-row">
-        <button type="button" className="sidebar__avatar" aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"} onClick={onToggle}>
-          <span />
+        <button type="button" className={cn("sidebar__avatar", Boolean(logo) && "has-logo")} aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"} onClick={onToggle}>
+          {logo ?? <span />}
         </button>
         {!collapsed ? <span className="sidebar__brand">{brand}</span> : null}
       </div>
