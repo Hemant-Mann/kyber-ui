@@ -1,8 +1,13 @@
 import type { HTMLAttributes, TableHTMLAttributes, TdHTMLAttributes, ThHTMLAttributes } from "react";
 import { cn } from "../lib/cn";
 
+// Wide tables scroll inside their frame instead of pushing the page sideways.
 export function Table({ className, ...props }: TableHTMLAttributes<HTMLTableElement>) {
-  return <table className={cn("kyb-table", className)} {...props} />;
+  return (
+    <div className="kyb-table-scroll">
+      <table className={cn("kyb-table", className)} {...props} />
+    </div>
+  );
 }
 
 export function TableHead({ className, ...props }: HTMLAttributes<HTMLTableSectionElement>) {

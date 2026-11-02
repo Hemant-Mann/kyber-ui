@@ -11,17 +11,27 @@ function isItemActive(pathname: string, item: KitNavItem) {
   return pathname.startsWith(item.href);
 }
 
+// The rail scrolls, so its tooltip is position: fixed; this pins it to the hovered/focused item.
+function placeTip(event: { currentTarget: HTMLElement }) {
+  const el = event.currentTarget;
+  const rect = el.getBoundingClientRect();
+  el.style.setProperty("--tip-y", `${rect.top + rect.height / 2}px`);
+  el.style.setProperty("--tip-x", `${rect.right + 10}px`);
+}
+
 function NavItemLink({ item, collapsed, active }: { item: KitNavItem; collapsed: boolean; active: boolean }) {
+  const tip = collapsed ? { onMouseEnter: placeTip, onFocus: placeTip } : {};
   const content = (
     <>
       <span className="nav-item__icon">{item.icon}</span>
-      {!collapsed ? <span className="nav-item__label">{item.label}</span> : null}
+      {/* Collapsed: the label stays in the DOM and shows as a tooltip on hover/focus. */}
+      <span className={cn("nav-item__label", collapsed && "nav-item__tip")}>{item.label}</span>
     </>
   );
 
   if (!item.href || item.href === "#") {
     return (
-      <button type="button" className={cn("nav-item", active && "is-active")} aria-label={item.label}>
+      <button type="button" className={cn("nav-item", active && "is-active")} aria-label={item.label} {...tip}>
         {content}
       </button>
     );
@@ -29,14 +39,14 @@ function NavItemLink({ item, collapsed, active }: { item: KitNavItem; collapsed:
 
   if (item.external) {
     return (
-      <a className={cn("nav-item", active && "is-active")} href={item.href} target="_blank" rel="noreferrer" aria-label={item.label}>
+      <a className={cn("nav-item", active && "is-active")} href={item.href} target="_blank" rel="noreferrer" aria-label={item.label} {...tip}>
         {content}
       </a>
     );
   }
 
   return (
-    <Link className={cn("nav-item", active && "is-active")} href={item.href} aria-label={item.label}>
+    <Link className={cn("nav-item", active && "is-active")} href={item.href} aria-label={item.label} {...tip}>
       {content}
     </Link>
   );

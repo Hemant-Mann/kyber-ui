@@ -15,12 +15,14 @@ colors:
   accent-soft: "#F5EBDB"
   danger: "#E86359"
   success: "#60CF54"
-  dark-neutral: "#15181E"
-  dark-surface: "#1C1F26"
-  dark-on-surface: "#E7EBEF"
-  dark-border: "#353A46"
-  dark-muted: "#2A2E37"
-  dark-muted-foreground: "#A4AAB7"
+  warning: "#F39A0B"
+  info: "#2496E6"
+  dark-neutral: "#121212"
+  dark-surface: "#171717"
+  dark-on-surface: "#F2F2F2"
+  dark-border: "#2E2E2E"
+  dark-muted: "#262626"
+  dark-muted-foreground: "#999999"
   dark-accent-soft: "#563A10"
 typography:
   headline-xl:
@@ -122,9 +124,9 @@ The palette is intentionally constrained to keep large data-heavy views scannabl
 - **Tertiary (`#171717`)**: primary text and high-emphasis iconography.
 - **Neutral (`#FBFAF9`)**: default app background and soft control surfaces.
 - **Surface (`#FFFFFF`)**: elevated cards and dialogs in light mode.
-- **State colors**: `danger` and `success` are status-only colors, not brand accents.
+- **State colors**: `danger`, `success`, `warning` and `info` are status-only colors, not brand accents. Status pills use the color as text on a 16% tint of itself.
 
-Dark mode keeps the same semantic mapping and accent hue, switching only surface and text luminance.
+Dark mode keeps the same semantic mapping and accent hue, switching only surface and text luminance. Dark surfaces are pure neutral greys (no blue tint), matching Vexly.
 
 ## Typography
 Overpass is the only type family for both display and body text, with weight and size carrying hierarchy.

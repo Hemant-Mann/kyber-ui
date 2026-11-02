@@ -1,3 +1,13 @@
+/* Hallmark · built: kyber-ui dashboard kit · theme: Kyber UI DESIGN.md (locked; Vexly) · genre: modern-minimal · scope: app · redesign: full */
+/* Hallmark · pre-emit critique: P4 H4 E4 S3 R4 V3 · weakest: S, the kit is a generic dashboard vocabulary by design; specificity comes from each app's content, so the kit stays neutral */
+/* Hallmark · waive 24b · DESIGN.md Shapes and Layout name 9px, 10px, 11px and 6px control insets as the current implementation · the kit's density system is tuned on these and Vexly ships them */
+[data-kyber-kit],
+[data-kyber-kit] *,
+[data-kyber-kit] *::before,
+[data-kyber-kit] *::after {
+  box-sizing: border-box;
+}
+
 [data-kyber-kit] .ui-btn {
   border: 0;
   border-radius: 1rem;
@@ -15,7 +25,9 @@
   transition: transform 100ms ease-out, background-color 100ms ease-out, border-color 100ms ease-out, filter 100ms ease-out;
 }
 
-[data-kyber-kit] .ui-btn:active {
+[data-kyber-kit] .ui-btn:active,
+[data-kyber-kit] .kyb-icon-button:active,
+[data-kyber-kit] .nav-item:active {
   transform: scale(0.98);
 }
 
@@ -66,13 +78,21 @@
   box-shadow: var(--shadow-card);
 }
 
+/* Text field (DESIGN.md input-default): neutral fill, 12px radius, 42px tall. */
 [data-kyber-kit] .ui-input {
-  border: 0;
-  background: transparent;
-  outline: none;
-  color: hsl(var(--foreground));
   width: 100%;
+  height: 42px;
+  border: 1px solid hsl(var(--border));
+  border-radius: 12px;
+  background: hsl(var(--secondary));
+  color: hsl(var(--foreground));
+  font: inherit;
   font-size: 0.875rem;
+  padding: 0 12px;
+}
+
+[data-kyber-kit] .ui-input::placeholder {
+  color: hsl(var(--muted-foreground));
 }
 
 [data-kyber-kit].dashboard-root {
@@ -109,7 +129,7 @@
 
   min-height: 100vh;
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto minmax(0, 1fr);
 }
 
 [data-kyber-kit].dashboard-root[data-density="compact"] {
@@ -143,7 +163,9 @@
 }
 
 [data-kyber-kit] .dashboard-content {
-  width: 90%;
+  width: 100%;
+  min-width: 0;
+  max-width: var(--content-max, 1440px);
   margin: 0 auto;
   padding: var(--content-pad-y) var(--content-pad-x) var(--space-5);
 }
@@ -153,7 +175,9 @@
   border-right: 1px solid hsl(var(--border));
   background: hsl(var(--background));
   padding: 12px 10px;
-  transition: width 230ms ease;
+  position: sticky;
+  top: 0;
+  height: 100vh;
 }
 
 [data-kyber-kit] .sidebar.is-collapsed {
@@ -171,7 +195,7 @@
   width: 34px;
   height: 34px;
   border-radius: 999px;
-  background: linear-gradient(145deg, #2b2a29, #444341);
+  background: hsl(var(--foreground));
   border: 0;
   display: grid;
   place-items: center;
@@ -183,7 +207,7 @@
   width: 14px;
   height: 14px;
   border-radius: 999px;
-  border: 2px solid #f1efe9;
+  border: 2px solid hsl(var(--background));
   border-top-color: transparent;
 }
 
@@ -209,10 +233,8 @@
   margin: 0 0 var(--space-2);
   font-size: var(--text-xs);
   line-height: 1;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
   color: hsl(var(--muted-foreground));
-  font-weight: 700;
+  font-weight: 600;
 }
 
 [data-kyber-kit] .sidebar__group {
@@ -233,6 +255,7 @@
   padding: 0 9px;
   font-family: inherit;
   cursor: pointer;
+  position: relative;
   transition: background-color 180ms ease, color 180ms ease;
 }
 
@@ -259,6 +282,34 @@
   font-size: var(--text-sm);
   font-weight: 600;
 }
+
+[data-kyber-kit] .sidebar.is-collapsed .nav-item {
+  justify-content: center;
+  padding: 0;
+}
+
+[data-kyber-kit] .nav-item__tip {
+  position: fixed;
+  left: var(--tip-x, 80px);
+  top: var(--tip-y, 0);
+  translate: 0 -50%;
+  z-index: 60;
+  white-space: nowrap;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: hsl(var(--foreground));
+  color: hsl(var(--background));
+  font-size: var(--text-xs);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+
+[data-kyber-kit] .nav-item:hover .nav-item__tip,
+[data-kyber-kit] .nav-item:focus-visible .nav-item__tip {
+  opacity: 1;
+}
+
 
 [data-kyber-kit] .topbar {
   height: var(--topbar-h);
@@ -308,14 +359,14 @@
   position: fixed;
   inset: 0;
   z-index: 80;
-  background: rgba(8, 8, 8, 0.24);
+  background: hsl(var(--overlay));
   display: grid;
   place-items: start center;
   padding-top: 88px;
 }
 
 [data-kyber-kit] .search-dialog {
-  width: min(680px, calc(100vw - 32px));
+  width: min(680px, calc(100% - 32px));
   border-radius: 10px;
   border: 1px solid hsl(var(--border));
   background: hsl(var(--card));
@@ -341,6 +392,19 @@
 [data-kyber-kit] .search-dialog__field {
   height: 100%;
   font-size: var(--text-sm);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 0;
+}
+
+[data-kyber-kit] .search-dialog__field:focus-visible {
+  outline: none;
+}
+
+/* The field's focus shows on its row instead. */
+[data-kyber-kit] .search-dialog__input:focus-within {
+  border-bottom-color: hsl(var(--primary));
 }
 
 [data-kyber-kit] .search-dialog__list {
@@ -470,6 +534,13 @@
   color: hsl(var(--muted-foreground));
 }
 
+[data-kyber-kit] .theme-menu__note {
+  margin: 0;
+  padding: 6px 8px 8px;
+  font-size: var(--text-xs);
+  color: hsl(var(--muted-foreground));
+}
+
 [data-kyber-kit] .mode-pill {
   min-height: var(--ctrl-h);
   border: 1px solid hsl(var(--border));
@@ -497,6 +568,7 @@
 
 [data-kyber-kit] .page-head h1 {
   margin: 0;
+  text-wrap: balance;
   font-size: clamp(27px, 2vw, 36px);
   line-height: 0.95;
   letter-spacing: -0.014em;
@@ -539,6 +611,7 @@
 
 [data-kyber-kit] .page-stat-card strong {
   display: block;
+  font-variant-numeric: tabular-nums;
   margin-top: 8px;
   font-size: 40px;
   font-family: var(--font-display);
@@ -560,6 +633,30 @@
   font-style: normal;
   color: hsl(var(--muted-foreground));
   font-size: 16px;
+}
+
+[data-kyber-kit] .page-stat-card em svg {
+  width: 18px;
+  height: 18px;
+}
+
+[data-kyber-kit] .page-stat-card.is-selectable {
+  cursor: pointer;
+  transition: border-color 140ms ease, background-color 140ms ease;
+}
+
+[data-kyber-kit] .page-stat-card.is-selectable:hover {
+  border-color: hsl(var(--muted-foreground) / 0.5);
+}
+
+[data-kyber-kit] .page-stat-card.is-selected {
+  border-color: hsl(var(--primary));
+  background: hsl(var(--accent-soft));
+}
+
+[data-kyber-kit] .kyb-icon-button svg {
+  width: 18px;
+  height: 18px;
 }
 
 [data-kyber-kit] .kyb-fade-up {
@@ -593,6 +690,24 @@
 [data-kyber-kit] .kyb-textarea:focus {
   outline: 2px solid hsl(var(--primary) / 0.35);
   outline-offset: 1px;
+}
+
+/* Bare native fields (input.kyb-input, select.kyb-select): same look as the kit's Select field. */
+[data-kyber-kit] .kyb-input,
+[data-kyber-kit] select.kyb-select {
+  width: 100%;
+  height: 40px;
+  border-radius: 12px;
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font: inherit;
+  font-size: 14px;
+  padding: 0 12px;
+}
+
+[data-kyber-kit] .kyb-input::placeholder {
+  color: hsl(var(--muted-foreground));
 }
 
 [data-kyber-kit] .kyb-select {
@@ -698,14 +813,23 @@
   color: hsl(var(--primary));
 }
 
+[data-kyber-kit] .kyb-table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid hsl(var(--border));
+  border-radius: 12px;
+  background: hsl(var(--card));
+}
+
+[data-kyber-kit] .kyb-data-table .kyb-table-scroll {
+  border: 0;
+  border-radius: 0;
+}
+
 [data-kyber-kit] .kyb-table {
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
-  border: 1px solid hsl(var(--border));
-  border-radius: 12px;
-  overflow: hidden;
-  background: hsl(var(--card));
 }
 
 [data-kyber-kit] .kyb-table__th,
@@ -748,18 +872,18 @@
 }
 
 [data-kyber-kit] .kyb-alert--success {
-  border-color: hsl(120 35% 40%);
-  background: hsl(120 30% 18% / 0.12);
+  border-color: hsl(var(--success));
+  background: hsl(var(--success) / 0.12);
 }
 
 [data-kyber-kit] .kyb-alert--warning {
-  border-color: hsl(36 70% 50%);
-  background: hsl(36 70% 40% / 0.12);
+  border-color: hsl(var(--warning));
+  background: hsl(var(--warning) / 0.12);
 }
 
 [data-kyber-kit] .kyb-alert--danger {
-  border-color: hsl(4 70% 55%);
-  background: hsl(4 70% 45% / 0.12);
+  border-color: hsl(var(--danger));
+  background: hsl(var(--danger) / 0.12);
 }
 
 [data-kyber-kit] .kyb-tooltip {
@@ -792,7 +916,7 @@
   position: fixed;
   inset: 0;
   z-index: 90;
-  background: rgba(10, 10, 10, 0.3);
+  background: hsl(var(--overlay));
   display: grid;
   place-items: center;
   padding: 16px;
@@ -853,7 +977,7 @@
   position: fixed;
   inset: 0;
   z-index: 90;
-  background: rgba(10, 10, 10, 0.25);
+  background: hsl(var(--overlay));
 }
 
 [data-kyber-kit] .kyb-drawer {
@@ -1036,7 +1160,7 @@
   left: 0.1rem;
   border-radius: 999px;
   background: hsl(var(--card));
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.16);
+  box-shadow: var(--shadow-thumb);
   transition: transform 140ms ease;
 }
 
@@ -1187,7 +1311,7 @@
   display: grid;
   place-items: center;
   padding: 20px;
-  background: rgba(10, 10, 10, 0.3);
+  background: hsl(var(--overlay));
 }
 
 [data-kyber-kit] .kyb-dialog {
@@ -1322,7 +1446,7 @@
   top: 16px;
   right: 16px;
   z-index: 120;
-  width: min(360px, calc(100vw - 24px));
+  width: min(360px, calc(100% - 24px));
   display: grid;
   gap: 8px;
 }
@@ -1340,15 +1464,18 @@
 }
 
 [data-kyber-kit] .kyb-toast--success {
-  border-left: 3px solid hsl(var(--success));
+  border-color: hsl(var(--success) / 0.5);
+  background: color-mix(in srgb, hsl(var(--success)) 8%, hsl(var(--card)));
 }
 
 [data-kyber-kit] .kyb-toast--warning {
-  border-left: 3px solid hsl(var(--primary));
+  border-color: hsl(var(--warning) / 0.5);
+  background: color-mix(in srgb, hsl(var(--warning)) 8%, hsl(var(--card)));
 }
 
 [data-kyber-kit] .kyb-toast--danger {
-  border-left: 3px solid hsl(var(--danger));
+  border-color: hsl(var(--danger) / 0.5);
+  background: color-mix(in srgb, hsl(var(--danger)) 8%, hsl(var(--card)));
 }
 
 [data-kyber-kit] .kyb-toast__content h5 {
@@ -1517,4 +1644,20 @@
   border: 0;
   border-top: 1px solid hsl(var(--border));
   margin: 0;
+}
+
+/* Keyboard focus: every kit control gets a ring, shown instantly. */
+[data-kyber-kit] :is(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-kyber-kit] *,
+  [data-kyber-kit] *::before,
+  [data-kyber-kit] *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
