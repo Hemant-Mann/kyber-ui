@@ -2,9 +2,8 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import { GlobeIcon, MonitorIcon, MoonIcon, SearchIcon, SunIcon } from "../icons";
+import { LogOutIcon, MonitorIcon, MoonIcon, SearchIcon, SunIcon, UserIcon } from "../icons";
 import { cn } from "../lib/cn";
 import { applyThemeMode, getStoredThemeMode, THEME_STORAGE_KEY, type ThemeMode } from "../lib/theme";
 import type { KitNavSection } from "../types";
@@ -21,6 +20,8 @@ export function DashboardTopbar({
   onPrimaryAction: () => void;
 }) {
   const themeMenuRef = useRef<HTMLDivElement>(null);
+  const userMenuRef = useRef<HTMLDivElement>(null);
+  const [userOpen, setUserOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [themeOpen, setThemeOpen] = useState(false);
   const [themeMode, setThemeMode] = useState<ThemeMode>("system");
@@ -47,6 +48,7 @@ export function DashboardTopbar({
       if (event.key === "Escape") {
         setSearchOpen(false);
         setThemeOpen(false);
+        setUserOpen(false);
       }
     };
 
@@ -83,6 +85,9 @@ export function DashboardTopbar({
       if (!themeMenuRef.current?.contains(event.target as Node)) {
         setThemeOpen(false);
       }
+      if (!userMenuRef.current?.contains(event.target as Node)) {
+        setUserOpen(false);
+      }
     };
     window.addEventListener("mousedown", onMouseDown);
     return () => window.removeEventListener("mousedown", onMouseDown);
@@ -101,10 +106,6 @@ export function DashboardTopbar({
         </button>
 
         <div className="topbar__actions">
-          <button type="button" className="icon-btn" aria-label="Language">
-            <GlobeIcon />
-          </button>
-
           <div className="theme-menu" ref={themeMenuRef}>
             <button type="button" className="icon-btn" aria-label={`Theme: ${themeLabel}`} onClick={() => setThemeOpen((prev) => !prev)}>
               {themeIcon}
@@ -127,11 +128,19 @@ export function DashboardTopbar({
             ) : null}
           </div>
 
-          <div className="mode-pill">
-            <span>{modeLabel}</span>
-            <Button variant="pill" onClick={onPrimaryAction}>
-              {primaryActionLabel} <span aria-hidden>→</span>
-            </Button>
+          <div className="theme-menu" ref={userMenuRef}>
+            <button type="button" className="icon-btn" aria-label="Account" aria-expanded={userOpen} onClick={() => setUserOpen((prev) => !prev)}>
+              <UserIcon />
+            </button>
+            {userOpen ? (
+              <div className="theme-menu__panel kyb-fade-up" role="menu">
+                {modeLabel ? <p className="theme-menu__note">{modeLabel}</p> : null}
+                <button type="button" role="menuitem" className="theme-menu__item" onClick={() => { setUserOpen(false); onPrimaryAction(); }}>
+                  <LogOutIcon />
+                  <span>{primaryActionLabel}</span>
+                </button>
+              </div>
+            ) : null}
           </div>
         </div>
       </header>
@@ -155,7 +164,7 @@ export function DashboardTopbar({
               {filteredSections.length ? (
                 filteredSections.map((section) => (
                   <section className="search-dialog__group" key={section.label}>
-                    <h4 className="search-dialog__heading">{section.label.toUpperCase()}</h4>
+                    <h4 className="search-dialog__heading">{section.label}</h4>
                     {section.items.map((item) =>
                       item.href && item.href !== "#" ? (
                         item.external ? (

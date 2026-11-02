@@ -39,3 +39,4 @@ export type { ToastInput, ToastTone } from "./ui/toast";
 export type { DataTableColumn } from "./ui/data-table";
 
 export type { KitNavItem, KitNavSection, KitStatItem } from "./types";
+export * from "./icons";
